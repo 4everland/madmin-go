@@ -493,9 +493,10 @@ func (adm *AdminClient) DeleteServiceAccount(ctx context.Context, serviceAccount
 }
 
 type PutObjectMetadataReq struct {
-    Bucket   string  	       `json:"bucket,omitempty"`
-	Key   string               `json:"key,omitempty"`
-	Metadata map[string]string `json:"metadata,omityempty"`
+    Bucket   string  	        `json:"bucket,omitempty"`
+	Key  	 string             `json:"key,omitempty"`
+	Etag  	 string			    `json:"etag,omitempty"`
+	Metadata map[string]string  `json:"metadata,omityempty"`
 }
 
 // PutObjectMetadata - update object metadata; override exists metadata key and add new metadata
