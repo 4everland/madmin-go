@@ -493,26 +493,21 @@ func (adm *AdminClient) DeleteServiceAccount(ctx context.Context, serviceAccount
 }
 
 type PutObjectMetadataReq struct {
-    Bucket   string  	        `json:"bucket,omitempty"`
-	Key  	 string             `json:"key,omitempty"`
-	Etag  	 string			    `json:"etag,omitempty"`
-	Metadata map[string]string  `json:"metadata,omityempty"`
+	Bucket   string            `json:"bucket,omitempty"`
+	Key      string            `json:"key,omitempty"`
+	Etag     string            `json:"etag,omitempty"`
+	Metadata map[string]string `json:"metadata,omityempty"`
 }
 
 // PutObjectMetadata - update object metadata; override exists metadata key and add new metadata
-func (adm *AdminClient) PutObjectMetadata(ctx context.Context,  req PutObjectMetadataReq)(err error) {
-
+func (adm *AdminClient) PutObjectMetadata(ctx context.Context, req PutObjectMetadataReq) (err error) {
 	content, err := json.Marshal(req)
 	if err != nil {
 		return
 	}
-	reqBytes, err := EncryptData(adm.getSecretKey(), content)
-	if err != nil {
-		return
-	}
 	reqData := requestData{
-		relPath:  adminAPIPrefix + "/put-object-metadata",
-		content:  reqBytes,
+		relPath: adminAPIPrefix + "/put-object-metadata",
+		content: content,
 	}
 
 	// Execute PUT on /minio/admin/v3/put-object-metadata
